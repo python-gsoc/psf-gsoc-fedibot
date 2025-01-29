@@ -13,4 +13,4 @@ Making it easier to keep track of our participants, and inviting both participan
 
 ## Contribute?
 
-We're not really ready for outside contributions yet; so far, this is a proof of concept more than anything else. This project is run by [Ben](@ben@social.python-gsoc.org) in spare time.
+We're not really ready for outside contributions yet; so far, this is a proof of concept more than anything else. This project is run by [Ben](https://social.python-gsoc.org/@ben) in spare time.
