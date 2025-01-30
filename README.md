@@ -1,4 +1,4 @@
-# psf-gsoc-fedibot
+# python-gsoc-fedibot
 
 A bot for Python-GSOC's Fediverse presence.
 
@@ -14,7 +14,7 @@ Making it easier to keep track of our participants, and inviting both participan
 ## Usage
 
 ```bash
-usage: python-gsoc-bot [-h] -d DEADLINE (-i INPUT_FILE | -a ACCOUNT) [-v]
+usage: python-gsoc-fedibot [-h] -d DEADLINE (-i INPUT_FILE | -a ACCOUNT) [-v]
 
 Checks up on users.
 

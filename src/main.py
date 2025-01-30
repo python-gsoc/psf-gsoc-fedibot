@@ -30,25 +30,30 @@ def check_recent_posts(client: Mastodon, account_name: str, deadline: datetime):
         print(f"{account_name}:")
 
         # look up the posts, in order. Find the most recent.
+        # TODO: Extend this to keep finding until posts are outside the interval.
         posts = client.account_statuses(account['id'], exclude_reblogs = True, exclude_replies = True, limit=10)
         trace(f'Returned {len(posts)} posts.')
+
+        if len(posts) == 0:
+            print(f"{account_name} has no posts.")
+            return
 
         for post in posts:
             trace(post)
 
-        if (len(posts) > 0):
-            post = posts[0]
-            postdate = post['created_at']
-
+        window_posts = [p for p in posts if p['created_at'] >= initial_window and p['created_at'] <= deadline]
+        if len(window_posts) > 0:
+            print(f'{account_name} has {len(window_posts)} posts in the window (between {initial_window} and {deadline}). The most recent is on {window_posts[0]['created_at']}.')
             # Record when the most recent post was
-            print(f"Most recent post posted on: ({type(postdate)}) {postdate}, contents: {post['content']}")
+            print(f"Most recent post timestamp: {window_posts[0]['created_at']}, link: {window_posts[0]['url']}, size: {len(window_posts[0]['content'])}")
 
-            # check the current date against the most recent deadline date.
-            # if the most recent post is not within a week of the most recent deadline,
-            if (today > deadline and postdate < initial_window):
-                # log that they're behind.
-                print(f"{account_name} hasn't posted in over a week.")
-                # send them a message and flag them in a list to the mentors & admins
+        else:
+            print(f"{account_name} didn't post between {initial_window} and {deadline}.")
+        
+
+        if (posts[0]['created_at'] > deadline):
+            print(f"{account_name} has posts after the deadline.")
+
     except mastodon.errors.MastodonNotFoundError:
         print(f"{account_name} is not present on the server.")
 
