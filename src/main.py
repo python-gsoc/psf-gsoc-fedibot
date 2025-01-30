@@ -19,8 +19,6 @@ def trace(message: str):
         print(message)
 
 def check_recent_posts(client: Mastodon, account_name: str, deadline: datetime):
-    today = datetime.now(timezone.utc)
-
     week = timedelta(weeks=1)
     initial_window = deadline - week
 
